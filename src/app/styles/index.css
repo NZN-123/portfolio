@@ -1,0 +1,41 @@
+@import 'tailwindcss';
+
+@theme {
+  --font-sans:
+    'Wanted Sans Variable', 'Wanted Sans', ui-sans-serif, system-ui, sans-serif;
+
+  /* Figma brand gradient stops */
+  --color-brand-start: #ffa161;
+  --color-brand-end: #ff7474;
+
+  /* Neutral tokens from Figma spec */
+  --color-ink-900: #171717;
+  --color-ink-600: #525252;
+  --color-surface: #fffefe;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+body {
+  font-family: var(--font-sans);
+  color: var(--color-ink-900);
+  background: var(--color-surface);
+  -webkit-font-smoothing: antialiased;
+  font-feature-settings: 'ss03';
+}
+
+@utility text-brand-gradient {
+  background: linear-gradient(180deg, var(--color-brand-start) -60%, var(--color-brand-end) 100%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+}
+
+@utility bg-brand-gradient {
+  background: linear-gradient(180deg, var(--color-brand-start) -30%, var(--color-brand-end) 50%);
+}
