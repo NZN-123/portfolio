@@ -1,6 +1,7 @@
 import { Link } from 'react-router';
 import { Hero } from '@widgets/hero';
 import { SkillSection } from '@widgets/skill-section';
+import { ExperienceSection } from '@widgets/experience-section';
 import { PROJECTS } from '@entities/project';
 import { SECTION_IDS, projectDetailPath } from '@shared/config';
 
@@ -9,6 +10,7 @@ export function MainPage() {
     <div className="min-h-full bg-[#FFFEFE]">
       <Hero />
       <SkillSection />
+      <ExperienceSection />
 
       <section
         id={SECTION_IDS.project}
