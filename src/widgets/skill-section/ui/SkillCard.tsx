@@ -30,7 +30,7 @@ function SkillIcon({
 
 export function SkillCard({ title, skills }: SkillGroup) {
   return (
-    <div className="flex shrink-0 flex-col gap-8 rounded-[32px] bg-white p-8 shadow-[0_1px_2px_rgba(0,0,0,0.04)] lg:p-16">
+    <div className="flex shrink-0 flex-col gap-8 rounded-[32px] bg-white p-8 lg:p-16">
       <h3 className="text-xl leading-7 font-semibold tracking-[-0.12px] text-[#171717]">
         {title}
       </h3>

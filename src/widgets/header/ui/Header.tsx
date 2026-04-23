@@ -11,8 +11,8 @@ export function Header({
 }: HeaderProps) {
   return (
     <>
-      {/* Mobile: in-flow row (< lg) */}
-      <div className="flex h-20 w-full shrink-0 items-center justify-between px-6 py-4 lg:hidden">
+      {/* Mobile: fixed top bar (< lg) */}
+      <div className="fixed top-0 right-0 left-0 z-50 flex h-20 items-center justify-between bg-[#FAFAFA]/80 px-6 py-4 backdrop-blur-md lg:hidden">
         <a
           href={`#${SECTION_IDS.main}`}
           aria-label="Home"
@@ -42,11 +42,11 @@ export function Header({
         </button>
       </div>
 
-      {/* Desktop: absolute with fluid margins (>= lg) */}
+      {/* Desktop: fixed favicon (>= lg) */}
       <a
         href={`#${SECTION_IDS.main}`}
         aria-label="Home"
-        className="absolute z-50 hidden h-12 w-12 lg:block"
+        className="fixed z-50 hidden h-12 w-12 lg:block"
         style={{
           top: 'clamp(32px, 6vh, 100px)',
           left: 'clamp(40px, 8vw, 240px)',
@@ -55,9 +55,10 @@ export function Header({
         <img src="/favicon.svg" alt="" className="h-full w-full" />
       </a>
 
+      {/* Desktop: fixed floating nav pill (>= lg) */}
       <nav
         aria-label="Primary"
-        className="absolute z-50 hidden h-14 items-center gap-10 rounded-full bg-white/10 px-8 backdrop-blur-md lg:flex xl:gap-12"
+        className="fixed z-50 hidden h-14 items-center gap-10 rounded-full bg-white/60 px-8 backdrop-blur-md lg:flex xl:gap-12"
         style={{
           top: 'clamp(32px, 6vh, 96px)',
           right: 'clamp(40px, 8vw, 240px)',

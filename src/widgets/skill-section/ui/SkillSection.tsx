@@ -30,7 +30,7 @@ export function SkillSection() {
   const x = useTransform(scrollYProgress, [0, 1], [0, -maxTranslate]);
 
   return (
-    <section id={SECTION_IDS.skill} className="bg-[#F7F7F8]">
+    <section id={SECTION_IDS.skill} className="bg-[#FAFAFA]">
       {/* Desktop (lg+): pinned horizontal scroll */}
       <div
         ref={containerRef}

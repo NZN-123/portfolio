@@ -30,7 +30,7 @@ export function ExperienceSection() {
   const x = useTransform(scrollYProgress, [0, 1], [0, -maxTranslate]);
 
   return (
-    <section id={SECTION_IDS.experience} className="bg-[#FFFEFE]">
+    <section id={SECTION_IDS.experience} className="bg-[#FAFAFA]">
       {/* Desktop (lg+): pinned horizontal scroll */}
       <div
         ref={containerRef}

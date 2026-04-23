@@ -3,7 +3,7 @@ import type { ExperienceGroup } from '@entities/experience';
 export function ExperienceCard({ title, iconSrc, items, width }: ExperienceGroup) {
   return (
     <div
-      className="flex h-[398px] shrink-0 flex-col gap-6 rounded-[32px] bg-white p-8 shadow-[0_1px_2px_rgba(0,0,0,0.04)] lg:p-16"
+      className="flex h-[398px] shrink-0 flex-col gap-6 rounded-[32px] bg-white p-8 lg:p-16"
       style={{ width }}
     >
       <img

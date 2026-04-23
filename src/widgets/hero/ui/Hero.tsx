@@ -1,16 +1,13 @@
 import { DotLottieReact } from '@lottiefiles/dotlottie-react';
-import { Header } from '@widgets/header';
 import { SECTION_IDS } from '@shared/config';
 
 export function Hero() {
   return (
     <section
       id={SECTION_IDS.main}
-      className="relative flex w-full flex-col overflow-hidden bg-[#FFFEFE]"
+      className="relative flex w-full flex-col overflow-hidden bg-[#FFFEFE] pt-20 lg:pt-0"
       style={{ minHeight: '100dvh' }}
     >
-      <Header />
-
       <div className="flex flex-1 items-center justify-center">
         <div
           className="mx-auto flex w-full max-w-[1760px] flex-col items-center gap-6 py-4 sm:gap-8 md:py-8 lg:flex-row lg:items-center lg:justify-between lg:gap-10 lg:py-0 xl:gap-16"

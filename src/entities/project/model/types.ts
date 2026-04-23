@@ -4,4 +4,9 @@ export interface Project {
   slug: ProjectSlug;
   name: string;
   pdfUrl: string;
+  logoSrc: string;
+  brandColor: string;
+  role: string;
+  teamSize: string;
+  description: string;
 }
