@@ -3,6 +3,8 @@ import { Hero } from '@widgets/hero';
 import { SkillSection } from '@widgets/skill-section';
 import { ExperienceSection } from '@widgets/experience-section';
 import { ProjectSection } from '@widgets/project-section';
+import { BlogSection } from '@widgets/blog-section';
+import { ContactSection } from '@widgets/contact-section';
 
 export function MainPage() {
   return (
@@ -12,6 +14,8 @@ export function MainPage() {
       <SkillSection />
       <ExperienceSection />
       <ProjectSection />
+      <BlogSection />
+      <ContactSection />
     </div>
   );
 }
