@@ -8,6 +8,7 @@ export const PROJECTS: Project[] = [
   {
     slug: 'workcheck',
     name: '워크체크',
+    enName: 'WorkCheck',
     pdfUrl: '/pdfs/workcheck.pdf',
     logoSrc: workcheckLogo,
     brandColor: '#FF4B33',
@@ -19,6 +20,7 @@ export const PROJECTS: Project[] = [
   {
     slug: 'homeez',
     name: '홈이즈',
+    enName: 'HomeEz',
     pdfUrl: '/pdfs/homeez.pdf',
     logoSrc: homeezLogo,
     brandColor: '#2AA890',
@@ -30,6 +32,7 @@ export const PROJECTS: Project[] = [
   {
     slug: 'leafit',
     name: '리핏',
+    enName: 'Leafit',
     pdfUrl: '/pdfs/leafit.pdf',
     logoSrc: leafitLogo,
     brandColor: '#256F46',
