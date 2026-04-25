@@ -1,11 +1,11 @@
 const COOKIE_NAME = 'admin_session';
 const MAX_AGE_SECONDS = 60 * 60 * 24 * 30;
 
-export function isAuthenticated(request: Request): boolean {
+export function isAuthenticated(cookieHeader: string | undefined): boolean {
   const expected = process.env.ADMIN_PASSWORD;
   if (!expected) return false;
-  const cookie = request.headers.get('cookie') ?? '';
-  const match = cookie
+  if (!cookieHeader) return false;
+  const match = cookieHeader
     .split(';')
     .map((part) => part.trim())
     .find((part) => part.startsWith(`${COOKIE_NAME}=`));

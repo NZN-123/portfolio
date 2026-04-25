@@ -1,15 +1,12 @@
+import type { VercelRequest, VercelResponse } from '@vercel/node';
 import { clearSessionCookie } from '../_lib/auth.js';
 
-export default async function handler(request: Request) {
-  if (request.method !== 'POST') {
-    return new Response('Method Not Allowed', { status: 405 });
+export default async function handler(req: VercelRequest, res: VercelResponse) {
+  if (req.method !== 'POST') {
+    res.status(405).send('Method Not Allowed');
+    return;
   }
 
-  return new Response(JSON.stringify({ ok: true }), {
-    status: 200,
-    headers: {
-      'Content-Type': 'application/json',
-      'Set-Cookie': clearSessionCookie(),
-    },
-  });
+  res.setHeader('Set-Cookie', clearSessionCookie());
+  res.status(200).json({ ok: true });
 }

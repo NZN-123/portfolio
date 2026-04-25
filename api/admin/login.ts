@@ -1,31 +1,24 @@
+import type { VercelRequest, VercelResponse } from '@vercel/node';
 import { makeSessionCookie } from '../_lib/auth.js';
 
-export default async function handler(request: Request) {
-  if (request.method !== 'POST') {
-    return new Response('Method Not Allowed', { status: 405 });
+export default async function handler(req: VercelRequest, res: VercelResponse) {
+  if (req.method !== 'POST') {
+    res.status(405).send('Method Not Allowed');
+    return;
   }
 
   const expected = process.env.ADMIN_PASSWORD;
   if (!expected) {
-    return Response.json({ error: 'Admin password not configured' }, { status: 500 });
+    res.status(500).json({ error: 'Admin password not configured' });
+    return;
   }
 
-  let body: { password?: string };
-  try {
-    body = await request.json();
-  } catch {
-    return Response.json({ error: 'Invalid body' }, { status: 400 });
+  const body = req.body as { password?: unknown } | undefined;
+  if (!body || typeof body.password !== 'string' || body.password !== expected) {
+    res.status(401).json({ error: 'Wrong password' });
+    return;
   }
 
-  if (typeof body.password !== 'string' || body.password !== expected) {
-    return Response.json({ error: 'Wrong password' }, { status: 401 });
-  }
-
-  return new Response(JSON.stringify({ ok: true }), {
-    status: 200,
-    headers: {
-      'Content-Type': 'application/json',
-      'Set-Cookie': makeSessionCookie(expected),
-    },
-  });
+  res.setHeader('Set-Cookie', makeSessionCookie(expected));
+  res.status(200).json({ ok: true });
 }
