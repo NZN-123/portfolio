@@ -4,8 +4,6 @@ import { isAuthenticated } from '../_lib/auth';
 const ALLOWED_SLUGS = new Set(['workcheck', 'homeez', 'leafit']);
 const MAX_BYTES = 20 * 1024 * 1024;
 
-export const config = { runtime: 'edge' };
-
 export default async function handler(request: Request) {
   if (request.method !== 'POST') {
     return new Response('Method Not Allowed', { status: 405 });

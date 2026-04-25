@@ -2,8 +2,6 @@ import { list } from '@vercel/blob';
 
 const ALLOWED_SLUGS = new Set(['workcheck', 'homeez', 'leafit']);
 
-export const config = { runtime: 'edge' };
-
 export default async function handler(request: Request) {
   const url = new URL(request.url);
   const slug = url.pathname.split('/').pop() ?? '';
