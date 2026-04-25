@@ -1,7 +1,6 @@
+import type { VercelRequest, VercelResponse } from '@vercel/node';
 import { handleUpload, type HandleUploadBody } from '@vercel/blob/client';
 import { isAuthenticated } from '../_lib/auth.js';
-
-export const config = { runtime: 'edge' };
 
 const ALLOWED_PATHNAMES = new Set([
   'pdfs/workcheck.pdf',
@@ -11,22 +10,28 @@ const ALLOWED_PATHNAMES = new Set([
 
 const MAX_BYTES = 20 * 1024 * 1024;
 
-export default async function handler(request: Request): Promise<Response> {
-  if (request.method !== 'POST') {
-    return new Response('Method Not Allowed', { status: 405 });
+export default async function handler(req: VercelRequest, res: VercelResponse) {
+  if (req.method !== 'POST') {
+    res.status(405).send('Method Not Allowed');
+    return;
   }
 
-  const cookie = request.headers.get('cookie') ?? undefined;
-  if (!isAuthenticated(cookie)) {
-    return Response.json({ error: 'Unauthorized' }, { status: 401 });
+  if (!isAuthenticated(req.headers.cookie)) {
+    res.status(401).json({ error: 'Unauthorized' });
+    return;
   }
 
-  const body = (await request.json()) as HandleUploadBody;
+  if (!process.env.BLOB_READ_WRITE_TOKEN) {
+    res.status(500).json({ error: 'Blob storage not configured' });
+    return;
+  }
+
+  const body = req.body as HandleUploadBody;
 
   try {
     const jsonResponse = await handleUpload({
       body,
-      request,
+      request: req as unknown as Request,
       onBeforeGenerateToken: async (pathname) => {
         if (!ALLOWED_PATHNAMES.has(pathname)) {
           throw new Error('Invalid pathname');
@@ -42,9 +47,9 @@ export default async function handler(request: Request): Promise<Response> {
         console.log('[upload] completed', blob.url);
       },
     });
-    return Response.json(jsonResponse);
+    res.status(200).json(jsonResponse);
   } catch (error) {
     const message = error instanceof Error ? error.message : 'Upload failed';
-    return Response.json({ error: message }, { status: 400 });
+    res.status(400).json({ error: message });
   }
 }
