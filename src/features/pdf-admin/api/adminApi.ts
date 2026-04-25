@@ -25,20 +25,17 @@ export async function logout(): Promise<void> {
 }
 
 export async function uploadPdf(slug: string, file: File): Promise<{ url: string }> {
-  const form = new FormData();
-  form.append('slug', slug);
-  form.append('file', file);
-
-  const res = await fetch('/api/admin/upload', {
-    method: 'POST',
-    credentials: 'same-origin',
-    body: form,
-  });
-  if (!res.ok) {
-    const data = await res.json().catch(() => ({}));
-    throw new Error(data.error ?? '업로드에 실패했어요.');
+  const { upload } = await import('@vercel/blob/client');
+  try {
+    const blob = await upload(`pdfs/${slug}.pdf`, file, {
+      access: 'public',
+      handleUploadUrl: '/api/admin/upload',
+      contentType: 'application/pdf',
+    });
+    return { url: blob.url };
+  } catch (err) {
+    throw new Error(err instanceof Error ? err.message : '업로드에 실패했어요.');
   }
-  return res.json();
 }
 
 export async function fetchProjectPdfUrl(slug: string): Promise<string | null> {
