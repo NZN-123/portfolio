@@ -13,7 +13,7 @@ export function ProjectDetailPage() {
     if (!project) return;
     setPdfUrl(undefined);
     let cancelled = false;
-    fetch(`/api/pdf/${project.slug}`)
+    fetch(`/api/pdf?slug=${encodeURIComponent(project.slug)}`)
       .then((res) => (res.ok ? res.json() : Promise.reject(res.status)))
       .then((data: { url: string | null }) => {
         if (!cancelled) setPdfUrl(data.url ?? project.pdfUrl);

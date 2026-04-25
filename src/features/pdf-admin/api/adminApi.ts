@@ -39,7 +39,7 @@ export async function uploadPdf(slug: string, file: File): Promise<{ url: string
 }
 
 export async function fetchProjectPdfUrl(slug: string): Promise<string | null> {
-  const res = await fetch(`/api/pdf/${slug}`);
+  const res = await fetch(`/api/pdf?slug=${encodeURIComponent(slug)}`);
   if (!res.ok) return null;
   const data = await res.json();
   return data.url ?? null;
