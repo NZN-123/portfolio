@@ -1,5 +1,5 @@
 import { put } from '@vercel/blob';
-import { isAuthenticated } from '../_lib/auth';
+import { isAuthenticated } from '../_lib/auth.js';
 
 const ALLOWED_SLUGS = new Set(['workcheck', 'homeez', 'leafit']);
 const MAX_BYTES = 20 * 1024 * 1024;
