@@ -44,8 +44,8 @@ export const EXPERIENCE_GROUPS: ExperienceGroup[] = [
     iconSrc: experienceGraphic,
     width: 354,
     items: [
-      '전북현대 용역제안서 PPT 시안 디자인',
-      'KISS 홈페이지 시안 디자인',
+      '000 용역제안서 PPT 시안 디자인',
+      '000 홈페이지 시안 디자인',
       '00대 캡스톤 메타버스 PPT, 영상 제작',
     ],
   },

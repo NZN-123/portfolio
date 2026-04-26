@@ -3,6 +3,6 @@ export interface BlogPost {
   title: string;
   description: string;
   href: string;
-  thumbnailSrc?: string;
-  publishedAt?: string;
+  thumbnailSrc?: string | null;
+  publishedAt?: string | null;
 }

@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
-import { BLOG_POSTS } from '@entities/blog';
+import { fetchBlogPosts, type BlogPost } from '@entities/blog';
 import { SECTION_IDS } from '@shared/config';
 import arrowPrevIcon from '@shared/assets/icons/arrow-prev.png';
 import arrowNextIcon from '@shared/assets/icons/arrow-next.png';
@@ -14,6 +14,17 @@ export function BlogSection() {
   const scrollerRef = useRef<HTMLDivElement>(null);
   const [canPrev, setCanPrev] = useState(false);
   const [canNext, setCanNext] = useState(true);
+  const [posts, setPosts] = useState<BlogPost[]>([]);
+
+  useEffect(() => {
+    let cancelled = false;
+    fetchBlogPosts().then((result) => {
+      if (!cancelled) setPosts(result);
+    });
+    return () => {
+      cancelled = true;
+    };
+  }, []);
 
   const updateArrowState = useCallback(() => {
     const el = scrollerRef.current;
@@ -65,16 +76,24 @@ export function BlogSection() {
           </div>
         </div>
 
-        <div
-          ref={scrollerRef}
-          className="flex snap-x snap-mandatory gap-6 overflow-x-auto scroll-smooth pb-4 [-webkit-overflow-scrolling:touch] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
-        >
-          {BLOG_POSTS.map((post) => (
-            <div key={post.id} className="snap-start">
-              <BlogCard {...post} />
-            </div>
-          ))}
-        </div>
+        {posts.length === 0 ? (
+          <div className="flex h-[381px] items-center justify-center rounded-[32px] bg-[#FFFEFE] text-[#525252]">
+            <p className="text-base leading-6 font-medium">
+              아직 작성된 글이 없어요. 곧 채워질 예정이에요!
+            </p>
+          </div>
+        ) : (
+          <div
+            ref={scrollerRef}
+            className="flex snap-x snap-mandatory gap-6 overflow-x-auto scroll-smooth pb-4 [-webkit-overflow-scrolling:touch] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+          >
+            {posts.map((post) => (
+              <div key={post.id} className="snap-start">
+                <BlogCard {...post} />
+              </div>
+            ))}
+          </div>
+        )}
       </div>
     </section>
   );
